@@ -23,7 +23,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-namespace Jacwright\RestServer;
+#namespace Jacwright\RestServer;
 
 /**
  * Constants used in RestServer Class.

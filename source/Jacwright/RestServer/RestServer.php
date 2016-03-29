@@ -23,16 +23,16 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-namespace Jacwright\RestServer;
+#namespace Jacwright\RestServer;
 
-require(__DIR__ . '/RestFormat.php');
-require(__DIR__ . '/RestException.php');
+require(dirname(__FILE__) . '/RestFormat.php');
+require(dirname(__FILE__) . '/RestException.php');
 
-use Exception;
-use ReflectionClass;
-use ReflectionObject;
-use ReflectionMethod;
-use DOMDocument;
+#use Exception;
+#use ReflectionClass;
+#use ReflectionObject;
+#use ReflectionMethod;
+#use DOMDocument;
 
 /**
  * Description of RestServer
@@ -46,7 +46,7 @@ class RestServer
 	public $method;
 	public $params;
 	public $format;
-	public $cacheDir = __DIR__;
+	public $cacheDir = NULL; //__DIR__, but PHP<5.3 does not know about; init in constructor
 	public $realm;
 	public $mode;
 	public $root;
@@ -64,6 +64,8 @@ class RestServer
 	 */
 	public function  __construct($mode = 'debug', $realm = 'Rest Server')
 	{
+	        $cacheDir = dirname(__FILE__); //for PHP<5.3
+
 		$this->mode = $mode;
 		$this->realm = $realm;
 		// Set the root
@@ -425,12 +427,14 @@ class RestServer
 					unset($data->$prop);
 				}
 			}
-			$options = 0;
-			if ($this->mode == 'debug') {
-				$options = JSON_PRETTY_PRINT;
-			}
-			$options = $options | JSON_UNESCAPED_UNICODE;
-			echo json_encode($data, $options);
+
+			//$options = 0;
+			//if ($this->mode == 'debug') {
+			//	$options = JSON_PRETTY_PRINT;
+			//}
+			//$options = $options | JSON_UNESCAPED_UNICODE;
+			//echo json_encode($data, $options);
+			echo json_encode($data);   //PHP<5.3 has no second arg
 		}
 	}
 

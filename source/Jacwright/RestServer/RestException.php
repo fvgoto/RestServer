@@ -23,9 +23,9 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-namespace Jacwright\RestServer;
+#namespace Jacwright\RestServer;
 
-use Exception;
+#use Exception;
 
 class RestException extends Exception
 {
