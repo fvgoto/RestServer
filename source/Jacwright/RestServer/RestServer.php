@@ -327,8 +327,11 @@ class RestServer
 					}
 					$call = array($class, $method->getName());
 					$args = array();
-					foreach ($params as $param) {
-						$args[$param->getName()] = $param->getPosition();
+					foreach ($params as $position => $param) {
+						// comment http://php.net/manual/en/reflectionparameter.getposition.php#101256
+						//  Note that the ReflectionFunctionAbstract::getParameters() method will
+						//  return the parameters in the correct order.
+						$args[$param->getName()] = $position;   //PHP>=5.2.3 has $param->getPosition()
 					}
 					$call[] = $args;
 					$call[] = null;
