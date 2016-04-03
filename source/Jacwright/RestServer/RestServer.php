@@ -431,13 +431,16 @@ class RestServer
 				}
 			}
 
-			//$options = 0;
-			//if ($this->mode == 'debug') {
-			//	$options = JSON_PRETTY_PRINT;
-			//}
-			//$options = $options | JSON_UNESCAPED_UNICODE;
-			//echo json_encode($data, $options);
-			echo json_encode($data);   //PHP<5.3 has no second arg
+			if( defined('JSON_PRETTY_PRINT') ) {
+				$options = 0;
+				if ($this->mode == 'debug') {
+					$options = JSON_PRETTY_PRINT;
+				}
+				$options = $options | JSON_UNESCAPED_UNICODE;
+				echo json_encode($data, $options);
+			} else {
+				echo json_encode($data);   //PHP<5.3 has no second arg
+			}
 		}
 	}
 
